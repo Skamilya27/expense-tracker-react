@@ -13,11 +13,11 @@ function Login() {
         password: "",
     });
 
-    console.log(userData);
+    // console.log(userData);
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const { setIsLogin } = useContext(AuthContext);
+    const { setIdToken ,setIsLogin } = useContext(AuthContext);
 
     const handleChange = (e) => {
         // e.preventDefault();
@@ -45,6 +45,7 @@ function Login() {
 
           // if(res.status === 200) console.log(res.status)
           localStorage.setItem("idToken", res.data.idToken);
+          setIdToken(res.data.idToken)
           toast("User Logged-In successfully👍");
           navigate("/VerifyEmail");
         }

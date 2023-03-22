@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 function Header() {
+
+  const { IdToken, setIdToken } = useContext(AuthContext);
+
   return (
     <>
       <header className=" d-flex p-2 justify-content-around header">
@@ -27,9 +31,17 @@ function Header() {
             </Link>
           </button>
           <button className="btn">
-            <Link to="/auth" id="link">
+            {!IdToken ? <Link to="/auth" id="link">
               LOGIN
-            </Link>
+            </Link> : 
+            <div onClick={() => {
+              localStorage.removeItem("idToken");
+              localStorage.removeItem("userEmail");
+              setIdToken(null);
+            }}>
+              LOGOUT
+              </div>
+            }
           </button>
         </div>
       </header>
