@@ -46,7 +46,7 @@ function Login() {
           // if(res.status === 200) console.log(res.status)
           localStorage.setItem("idToken", res.data.idToken);
           toast("User Logged-In successfully👍");
-          navigate("/");
+          navigate("/VerifyEmail");
         }
         catch(e) {
           toast(e.response.data.error.message);

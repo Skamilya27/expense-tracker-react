@@ -5,6 +5,7 @@ import Home from './Home'
 import { AuthContext } from '../../context/AuthContext'
 import Login from '../Auth/Login'
 import CompleteProfilePage from '../CompleteProfile/CompleteProfilePage'
+import VerifyEmail from '../Auth/VerifyEmail'
 
 function AllRoutes() {
   const { isLogin } = useContext(AuthContext);
@@ -13,6 +14,7 @@ function AllRoutes() {
       <Route path='/' element={<Home />} />
       <Route path='/auth' element={isLogin?<Login /> : <Signup />} />
       <Route path='/completeProfile' element={<CompleteProfilePage />} />
+      <Route path='/VerifyEmail' element={<VerifyEmail />} />
     </Routes>
   )
 }
