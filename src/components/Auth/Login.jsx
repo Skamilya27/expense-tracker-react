@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Form, ToastContainer } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContext";
@@ -13,14 +13,18 @@ function Login() {
         password: "",
     });
 
+    console.log(userData);
+
     const [isLoading, setIsLoading] = useState(false);
 
     const { setIsLogin } = useContext(AuthContext);
 
     const handleChange = (e) => {
-        e.preventDefault();
-        const {placeholder, value} = e.target;
-        setUserData({...userData, [placeholder]: value});
+        // e.preventDefault();
+        // console.log(e.target.name);
+        // let value = e.target.value;
+        const {name, value} = e.target;
+        setUserData({...userData, [name]: value});
     };
 
     const handleSubmit = async (e) => {
@@ -39,7 +43,7 @@ function Login() {
             }
           );
 
-          if(res.status == 200) console.log(res.status)
+          if(res.status === 200) console.log(res.status)
           toast("User Logged-In successfully👍");
           navigate("/");
         }
@@ -53,6 +57,7 @@ function Login() {
 
   return (
     <div>
+      <ToastContainer />
       <h1 className="display-1 border-3 border-dark m-auto my-3 w-25 p-3 mt-10 text-center">
         Login
       </h1>
@@ -65,9 +70,11 @@ function Login() {
         <div>
           <label  className="d-flex justify-content-center">E-mail Address</label>
           <input
+            name="email"
             type="email"
             className="form-control"
             onChange={handleChange}
+            // value={userData.email}
             placeholder="Enter Your Email Here"
             required
           />
@@ -81,16 +88,18 @@ function Login() {
         <div className="mt-2">
           <label className="d-flex justify-content-center">Password</label>
           <input
+            name="password"
             type="password"
             className="form-control"
             onChange={handleChange}
+            // value={userData.password}
             placeholder="Enter Your Password Here"
             required
           />
         </div>
 
-        <div className="d-flex justify-content-center mt-2">
-        <button
+        <div className="d-flex justify-content-center mt-2 gap-3">
+        {/* <button
             type="submit"
             className="btn bg-gradient"
             style={{
@@ -101,10 +110,17 @@ function Login() {
             disabled={isLoading}
           >
             {isLoading ? "Wait I'm Working🏃..." : "Login"}
-          </button>
+          </button> */}
+
+          {isLoading && "Wait I'm Working🏃..."}
+          {!isLoading && <input type="submit" className="btn bg-gradient" style={{
+              backgroundColor: "#d3dce8",
+              color: "black",
+              fontWeight: "bold",
+            }}
+            value="Login"/>}
 
           <button
-            type="submit"
             className="btn bg-gradient"
             onClick={() => setIsLogin(false)}
             style={{

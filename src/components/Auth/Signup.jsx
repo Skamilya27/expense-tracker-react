@@ -13,7 +13,7 @@ function Signup() {
     confirmpassword: "",
   });
 
-  const { setisLogin } = useContext(AuthContext);
+  const { setIsLogin } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -41,7 +41,7 @@ function Signup() {
       );
 
       if (res.status === 200) {toast("Successful😊")
-      setisLogin(true) }
+      setIsLogin(true) }
       else toast(res.data.error);
     } catch (e) {
       console.log(e.response.data.error);
@@ -54,7 +54,7 @@ function Signup() {
 
   return (
     <div>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <h1 className="display-1 border-3 border-dark m-auto my-3 w-25 p-3 mt-10 text-center">
         Sign-Up
       </h1>
@@ -116,7 +116,7 @@ function Signup() {
         </div>
 
         <div className="d-flex justify-content-center mt-2 gap-3">
-          <button
+          {/* <button
             type="submit"
             className="btn bg-gradient"
             style={{
@@ -127,12 +127,19 @@ function Signup() {
             disabled={isLoading}
           >
             {isLoading ? "Wait I'm Working🏃..." : "Create Account"}
-          </button>
+          </button> */}
+
+          {isLoading && "Wait I'm Working🏃..."}
+          {!isLoading && <input type="submit" className="btn bg-gradient" style={{
+              backgroundColor: "#d3dce8",
+              color: "black",
+              fontWeight: "bold",
+            }}
+            value="CREATE ACCOUNT"/>}
 
           <button
-            type="submit"
             className="btn bg-gradient"
-            onClick={() => setisLogin(true)}
+            onClick={() => setIsLogin(true)}
             style={{
               backgroundColor: "#d3dce8",
               color: "black",
