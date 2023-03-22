@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 function Login() {
 
@@ -10,55 +13,40 @@ function Login() {
         password: "",
     });
 
+    const [isLoading, setIsLoading] = useState(false);
+
+    const { setIsLogin } = useContext(AuthContext);
+
     const handleChange = (e) => {
         e.preventDefault();
         const {placeholder, value} = e.target;
         setUserData({...userData, [placeholder]: value});
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         localStorage.setItem('userEmail', userData.email)
 
-        fetch(
+        try {
+          setIsLoading(true);
+          const res = await axios.post(
             "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAcEPtUojmINWD51NeqF0UljCHCjEc2MxM",
             {
-                method: "POST",
-                body: JSON.stringify({
-                    email: userData.email,
-                    password: userData.password,
-                    returnSecureToken: true,
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            email: userData.email,
+            password: userData.password,
+            returnSecureToken: true,
             }
-        )
-        .then((res) => {
-            if(res.ok) {
-                return res.json();
-            } 
-            else {
-                res.json().then((data) => {
-                    let errorMessage = "Authenticaton failed";
-                    if (data.error.message) {
-                        alert(data.error.message);
-                    }
-                    else {
-                        alert(errorMessage);
-                    }
-                    throw new Error(errorMessage);
-                })
-            }
-        })
-        .then((data) => {
-            localStorage.setItem("token", data.idToken);
-            navigate('/store')
-        })
-        .catch((err) => {
-            console.error(err.message);
-        })
+          );
+
+          if(res.status == 200) console.log(res.status)
+          toast("User Logged-In successfully👍");
+          navigate("/");
+        }
+        catch(e) {
+          toast(e.response.data.error.message);
+        }
+        setIsLoading(false);
         document.querySelector("form").reset();
     };
 
@@ -102,7 +90,30 @@ function Login() {
         </div>
 
         <div className="d-flex justify-content-center mt-2">
-          <input type="submit" className="btn bg-gradient" style={{backgroundColor: "#d3dce8", color: "black", fontWeight: "bold"}} value="Login" />
+        <button
+            type="submit"
+            className="btn bg-gradient"
+            style={{
+              backgroundColor: "#d3dce8",
+              color: "black",
+              fontWeight: "bold",
+            }}
+            disabled={isLoading}
+          >
+            {isLoading ? "Wait I'm Working🏃..." : "Login"}
+          </button>
+
+          <button
+            type="submit"
+            className="btn bg-gradient"
+            onClick={() => setIsLogin(false)}
+            style={{
+              backgroundColor: "#d3dce8",
+              color: "black",
+              fontWeight: "bold",
+            }}>
+            New User?
+          </button>
         </div>
       </form>
     </div>
