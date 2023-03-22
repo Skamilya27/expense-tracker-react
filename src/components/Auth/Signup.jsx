@@ -130,20 +130,18 @@ function Signup() {
           </button> */}
 
           {isLoading && "Wait I'm Working🏃..."}
-          {!isLoading && <input type="submit" className="btn bg-gradient" style={{
-              backgroundColor: "#d3dce8",
-              color: "black",
-              fontWeight: "bold",
+          {!isLoading && <input type="submit" className="btn bg-gradient btn-secondary" style={{
+              // backgroundColor: "#d3dce8",
+              color: "white"
             }}
             value="CREATE ACCOUNT"/>}
 
           <button
-            className="btn bg-gradient"
+            className="btn bg-gradient btn-secondary"
             onClick={() => setIsLogin(true)}
             style={{
-              backgroundColor: "#d3dce8",
-              color: "black",
-              fontWeight: "bold",
+              // backgroundColor: "#d3dce8",
+              color: "white"
             }}>
             Already having an account?🤔
           </button>

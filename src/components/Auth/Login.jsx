@@ -43,7 +43,8 @@ function Login() {
             }
           );
 
-          if(res.status === 200) console.log(res.status)
+          // if(res.status === 200) console.log(res.status)
+          localStorage.setItem("idToken", res.data.idToken);
           toast("User Logged-In successfully👍");
           navigate("/");
         }
@@ -113,20 +114,18 @@ function Login() {
           </button> */}
 
           {isLoading && "Wait I'm Working🏃..."}
-          {!isLoading && <input type="submit" className="btn bg-gradient" style={{
-              backgroundColor: "#d3dce8",
-              color: "black",
-              fontWeight: "bold",
+          {!isLoading && <input type="submit" className="btn bg-gradient btn-secondary" style={{
+              // backgroundColor: "#d3dce8",
+              color: "white"
             }}
             value="Login"/>}
 
           <button
-            className="btn bg-gradient"
+            className="btn bg-gradient btn-secondary"
             onClick={() => setIsLogin(false)}
             style={{
-              backgroundColor: "#d3dce8",
-              color: "black",
-              fontWeight: "bold",
+              // backgroundColor: "#d3dce8",
+              color: "white"
             }}>
             New User?
           </button>
@@ -137,3 +136,5 @@ function Login() {
 }
 
 export default Login;
+
+

@@ -1,14 +1,19 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Home() {
   return (
-    <div>
+    <>
       <h1>
         Hi! there🙋‍♂️👋
         <br />
         Welcome to Expense Tracker
       </h1>
-    </div>
+      <div>
+        Your Profile is Incomplete
+        <Link to='/completeProfile'>Complete now</Link>
+      </div>
+    </>
   )
 }
 
