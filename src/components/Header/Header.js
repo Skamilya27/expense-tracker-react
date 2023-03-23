@@ -16,8 +16,8 @@ function Header() {
             </Link>
           </button>
           <button className="btn">
-            <Link to="/store" id="link">
-              Store
+            <Link to="/expenses" id="link">
+              Expenses
             </Link>
           </button>
           <button className="btn">
