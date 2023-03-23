@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
+import { expenseContext } from '../../../context/ExpenseContext';
 
 const ExpenseForm = ({setExpenseArr}) => {
-
+    const { postExpense } = useContext(expenseContext);
     const [show, setShow] = useState(false);
     const [data, setData] = useState({Amount: 0, Description: '', Category: 'Food'})
 
@@ -16,7 +17,9 @@ const ExpenseForm = ({setExpenseArr}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setExpenseArr(prev => [...prev, data])
+        // setExpenseArr(prev => [...prev, data])
+
+        postExpense(data)
     }
 
 

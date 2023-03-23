@@ -8,16 +8,17 @@ import { BrowserRouter } from "react-router-dom";
 import "../node_modules/react-bootstrap/dist/react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import AuthProvider from "./context/AuthContext";
+import ExpenseProvider from "./context/ExpenseContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  
-    <AuthProvider>
+  <AuthProvider>
+    <ExpenseProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </AuthProvider>
-  
+    </ExpenseProvider>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
