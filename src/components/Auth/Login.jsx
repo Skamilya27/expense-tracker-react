@@ -17,7 +17,7 @@ function Login() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const { setIdToken ,setIsLogin } = useContext(AuthContext);
+    const { setIdToken ,setIsLogin, setShow } = useContext(AuthContext);
 
     const handleChange = (e) => {
         // e.preventDefault();
@@ -130,6 +130,13 @@ function Login() {
             }}>
             New User?
           </button>
+
+          <button className="btn bg-gradient btn-secondary"
+            onClick={() => setShow(true)}
+            style={{
+              // backgroundColor: "#d3dce8",
+              color: "white"
+            }}>Forgot Password?</button>
         </div>
       </form>
     </div>

@@ -17,7 +17,7 @@ function VerifyEmail() {
             }
         );
 
-        settext("Please check your mail and confirm the mail💻...");
+        settext("Please check your mailbox and confirm the mail💻...");
         setIsVerified(false);
     }
   return (
