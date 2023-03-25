@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { AuthContext } from "../../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/AuthSlicer";
 
 function Signup() {
   const navigate = useNavigate();
@@ -13,7 +14,10 @@ function Signup() {
     confirmpassword: "",
   });
 
-  const { setIsLogin } = useContext(AuthContext);
+  // const { setIsLogin } = useContext(AuthContext);
+  const dispatch = useDispatch();
+
+
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -23,7 +27,7 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("userEmail", userData.email);
+    // localStorage.setItem("userEmail", userData.email);
 
     if (userData.confirmpassword !== userData.password) {
       return toast("Your password is not matching🙅");
@@ -40,11 +44,12 @@ function Signup() {
         }
       );
 
-      if (res.status === 200) {toast("Successful😊")
-      setIsLogin(true) }
-      else toast(res.data.error);
+      toast("Successful😊");
+      // setIsLogin(true) }
+      dispatch(authActions.loginPage());
+      // else toast(res.data.error);
     } catch (e) {
-      console.log(e.response.data.error);
+      // console.log(e.response.data.error);
       toast(e.response.data.error.message);
     }
 
@@ -54,7 +59,7 @@ function Signup() {
 
   return (
     <div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <h1 className="display-1 border-3 border-dark m-auto my-3 w-25 p-3 mt-10 text-center">
         Sign-Up
       </h1>
@@ -138,7 +143,7 @@ function Signup() {
 
           <button
             className="btn bg-gradient btn-secondary"
-            onClick={() => setIsLogin(true)}
+            onClick={() => dispatch(authActions.loginPage())}
             style={{
               // backgroundColor: "#d3dce8",
               color: "white"

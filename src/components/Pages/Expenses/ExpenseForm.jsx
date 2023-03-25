@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import { expenseContext } from '../../../context/ExpenseContext';
+import { useDispatch } from 'react-redux';
+import { postExpense } from './ExpenseRequests';
 
 const ExpenseForm = ({setExpenseArr}) => {
-    const { postExpense } = useContext(expenseContext);
+    // const { postExpense } = useContext(expenseContext);
     const [show, setShow] = useState(false);
     const [data, setData] = useState({Amount: 0, Description: '', Category: 'Food'})
 
@@ -15,11 +16,15 @@ const ExpenseForm = ({setExpenseArr}) => {
         setData({...data, [name]: value})
     }
 
+    const dispatch = useDispatch()
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // setExpenseArr(prev => [...prev, data])
 
-        postExpense(data)
+        postExpense(data, dispatch);
+        handleClose()
+        document.getElementById("expenseForm").requestFullscreen()
     }
 
 
@@ -35,6 +40,7 @@ const ExpenseForm = ({setExpenseArr}) => {
         </Modal.Header>
 
         <Modal.Body>
+            <form id='expenseForm'>
             <div className='text-center'>
                 <input
                     className='form-control'
@@ -71,6 +77,7 @@ const ExpenseForm = ({setExpenseArr}) => {
                     Add Expense
                 </button>
             </div>
+            </form>
         </Modal.Body>
 
         <Modal.Footer>

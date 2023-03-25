@@ -1,13 +1,18 @@
-import React, { useContext, useState } from 'react'
-import { expenseContext } from '../../../context/ExpenseContext'
+import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { editExpense } from './ExpenseRequests';
 
 function EditForm({item}) {
-    const { editExpense } = useContext(expenseContext);
+    // const { editExpense } = useContext(expenseContext);
     const [show, setShow] = useState(false);
     const [data, setData] = useState(item);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const total = useSelector(state => state.expenses)
+
+    const dispatch = useDispatch();
     
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -17,7 +22,7 @@ function EditForm({item}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(data);
-        editExpense(data.id, data)
+        editExpense(data.id, data, dispatch)
         handleClose()
         document.getElementById("EditForm").reset();
     };
@@ -86,6 +91,10 @@ function EditForm({item}) {
             >
                 Close
             </Button>
+
+            {total > 1000 && (
+          <button className='btn btn-warning mt-5 ml-10'>Unlock Premium</button>
+        )}
         </Modal.Footer>
       </Modal>
     </div>

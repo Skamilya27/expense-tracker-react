@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/AuthSlicer";
 
 function Header() {
 
-  const { IdToken, setIdToken } = useContext(AuthContext);
+  // const { IdToken, setIdToken } = useContext(AuthContext);
+
+  const IdToken = useSelector((state) => state.auth.IdToken);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -35,9 +39,7 @@ function Header() {
               LOGIN
             </Link> : 
             <div onClick={() => {
-              localStorage.removeItem("idToken");
-              localStorage.removeItem("userEmail");
-              setIdToken(null);
+              dispatch(authActions.logout())
             }}>
               LOGOUT
               </div>

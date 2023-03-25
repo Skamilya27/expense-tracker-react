@@ -1,16 +1,21 @@
-import React, { useContext, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 // import {BsFillKeyFill} from 'react-icons/bs;'
-import { AuthContext } from '../../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '../../store/AuthSlicer';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function ForgotPasswordModal() {
 
-    const {show, setShow} = useContext(AuthContext);
     const inputRef = useRef('');
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+
+    const showForgotModal = useSelector((state) => state.auth.showForgotModal);
+    const dispatch = useDispatch();
+
+    const handleClose = () => {
+        dispatch(authActions.hideForgotPasswordModal());
+    }
 
     async function handleSubmit() {
         try {
@@ -28,7 +33,7 @@ function ForgotPasswordModal() {
 
   return (
     <>
-        <Modal show={show} onHide={handleClose} className=''>
+        <Modal show={showForgotModal} onHide={handleClose} className=''>
             <Modal.Header closeButton>
                 <Modal.Title>
                     Forgot Password 

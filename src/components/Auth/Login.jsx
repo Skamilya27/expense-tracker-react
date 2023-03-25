@@ -1,11 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Form, ToastContainer } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/AuthSlicer";
 import axios from "axios";
 
 function Login() {
+
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
@@ -17,7 +21,7 @@ function Login() {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const { setIdToken ,setIsLogin, setShow } = useContext(AuthContext);
+    // const { setIdToken ,setIsLogin, setShow } = useContext(AuthContext);
 
     const handleChange = (e) => {
         // e.preventDefault();
@@ -30,7 +34,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        localStorage.setItem('userEmail', userData.email)
+        // localStorage.setItem('userEmail', userData.email)
 
         try {
           setIsLoading(true);
@@ -44,9 +48,10 @@ function Login() {
           );
 
           // if(res.status === 200) console.log(res.status)
-          localStorage.setItem("idToken", res.data.idToken);
-          setIdToken(res.data.idToken)
+          // localStorage.setItem("idToken", res.data.idToken);
+          // setIdToken(res.data.idToken)
           toast("User Logged-In successfully👍");
+          dispatch(authActions.login(res.data.idToken));
           navigate("/VerifyEmail");
         }
         catch(e) {
@@ -123,7 +128,7 @@ function Login() {
 
           <button
             className="btn bg-gradient btn-secondary"
-            onClick={() => setIsLogin(false)}
+            onClick={() => dispatch(authActions.signupPage())}
             style={{
               // backgroundColor: "#d3dce8",
               color: "white"
@@ -132,7 +137,7 @@ function Login() {
           </button>
 
           <button className="btn bg-gradient btn-secondary"
-            onClick={() => setShow(true)}
+            onClick={() => dispatch(authActions.showForgotPasswordModal())}
             style={{
               // backgroundColor: "#d3dce8",
               color: "white"
