@@ -10,8 +10,6 @@ function EditForm({item}) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const total = useSelector(state => state.expenses)
-
     const dispatch = useDispatch();
     
     const handleChange = (e) => {
@@ -92,9 +90,6 @@ function EditForm({item}) {
                 Close
             </Button>
 
-            {total > 1000 && (
-          <button className='btn btn-warning mt-5 ml-10'>Unlock Premium</button>
-        )}
         </Modal.Footer>
       </Modal>
     </div>

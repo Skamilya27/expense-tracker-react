@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/AuthSlicer";
+import { themeActions } from "../../store/ThemeSlicer";
 
 function Header() {
-
   // const { IdToken, setIdToken } = useContext(AuthContext);
 
   const IdToken = useSelector((state) => state.auth.IdToken);
@@ -35,16 +35,34 @@ function Header() {
             </Link>
           </button>
           <button className="btn">
-            {!IdToken ? <Link to="/auth" id="link">
-              LOGIN
-            </Link> : 
-            <div onClick={() => {
-              dispatch(authActions.logout())
-            }}>
-              LOGOUT
+            {!IdToken ? (
+              <Link to="/auth" id="link">
+                LOGIN
+              </Link>
+            ) : (
+              <div
+                onClick={() => {
+                  dispatch(authActions.logout());
+                }}
+              >
+                LOGOUT
               </div>
-            }
+            )}
           </button>
+
+          <div
+            style={{ height: "25px" }}
+            className="form-check mt-2 form-switch"
+          >
+            <input
+              onChange={() => dispatch(themeActions.changeTheme())}
+              className="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+            />
+            <label className="text-white">Dark mode</label>
+          </div>
         </div>
       </header>
     </>

@@ -142,6 +142,7 @@ function Signup() {
             value="CREATE ACCOUNT"/>}
 
           <button
+            id="btn"
             className="btn bg-gradient btn-secondary"
             onClick={() => dispatch(authActions.loginPage())}
             style={{

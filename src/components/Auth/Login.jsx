@@ -127,6 +127,7 @@ function Login() {
             value="Login"/>}
 
           <button
+            id="btn"
             className="btn bg-gradient btn-secondary"
             onClick={() => dispatch(authActions.signupPage())}
             style={{
@@ -136,7 +137,9 @@ function Login() {
             New User?
           </button>
 
-          <button className="btn bg-gradient btn-secondary"
+          <button 
+            id="btn"
+            className="btn bg-gradient btn-secondary"
             onClick={() => dispatch(authActions.showForgotPasswordModal())}
             style={{
               // backgroundColor: "#d3dce8",

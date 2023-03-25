@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.header{
+  background-color: #0081C9;
+}
+.header button {
+   color : white;
+}
+
+#link{
+  text-decoration: none;
+  color: white;
+}
+#link:hover{
+color: black;
+}
+
+
+#dark {
+  background-color: rgba(3, 3, 3, 0.918) ;
+  color: white;
+}
+#dark input{
+color : white;
+background-color: #282c34;
+}
+
+#dark #btn{
+  background-color: #181818;
+}
