@@ -4,7 +4,7 @@ const initialAuthState = {
     isLogin: false,
     IdToken: localStorage.getItem('idToken'),
     showForgotModal: false,
-    isLoginPage: false
+    isLoginPage : false
 }
 
 const authSlice = createSlice({
@@ -12,23 +12,20 @@ const authSlice = createSlice({
     initialState: initialAuthState,
     reducers: {
         login(state, action) {
-            localStorage.setItem('idToken', action.payload);
+            localStorage.setItem('idToken',action.payload);
             state.isLogin = true;
             state.IdToken = action.payload
         },
-
         logout(state) {
-            localStorage.removeItem('idToken');
-            state.isLogin = false;
-            state.IdToken = null;
+            localStorage.removeItem('idToken')
+             state.isLogin = false;
+             state.IdToken = null
         },
-
         loginPage(state) {
             state.isLoginPage = true
         },
-
         signupPage(state) {
-            state.isLoginPage = false;
+            state.isLoginPage = false
         },
         showForgotPasswordModal(state) {
             state.showForgotModal = true
@@ -36,9 +33,7 @@ const authSlice = createSlice({
         hideForgotPasswordModal(state) {
             state.showForgotModal = false
         }
-        
     }
 })
-
-export const authActions = authSlice.actions;
-export default authSlice;
+export const authActions = authSlice.actions
+export default authSlice

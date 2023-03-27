@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-function Home() {
+const Home = () => {
   return (
     <>
       <h1>
@@ -11,10 +11,10 @@ function Home() {
       </h1>
       <div>
         Your Profile is Incomplete
-        <Link to='/completeProfile'>Complete now</Link>
+        <Link to="/completeProfile">Complete now</Link>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

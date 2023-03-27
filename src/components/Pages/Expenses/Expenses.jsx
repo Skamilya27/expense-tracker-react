@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import ExpenseContainer from "./ExpenseContainer";
-import ExpenseForm from "./ExpenseForm";
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import ExpenseContainer from './ExpenseContainer';
+import ExpenseForm from './ExpenseForm'
 
 const Expenses = () => {
-  const [expenseArr, setExpenseArr] = useState([]);
-  const total = useSelector((state) => state.expenses);
-
+  const [expenseArr, setExpenseArr] = useState([])
+  const total = useSelector(state => state.expenses)
+  
   return (
     <div>
       {total > 10000 && (
@@ -16,6 +16,6 @@ const Expenses = () => {
       <ExpenseContainer expenseArr={expenseArr} />
     </div>
   );
-};
+}
 
-export default Expenses;
+export default Expenses

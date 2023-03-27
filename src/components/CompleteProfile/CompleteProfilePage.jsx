@@ -2,56 +2,54 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-function CompleteProfilePage() {
-    const [defaultData, setDefaultData] = useState({
-        fullName: "",
-        url: ""
-    });
+const CompleteProfilePage = () => {
+  const [defaultData, setDefaultData] = useState({ fullName: "", url: "" });
   const [userData, setUserData] = useState({
     fullName: "",
     url: "",
   });
   useEffect(() => {
     getPreviousValues();
-  }, [])
+  }, []);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   async function getPreviousValues() {
     let idToken = localStorage.getItem("idToken");
 
     const res = await axios.post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAcEPtUojmINWD51NeqF0UljCHCjEc2MxM",
-        {
-            idToken: idToken
-        }
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCbFTk4FsbWksp6ljbfam7dNwA4IyxJujU",
+      { idToken: idToken }
     );
     setDefaultData({
-        fullName: res.data.users[0].displayName,
-        url: res.data.users[0].photoUrl,
+      fullName: res.data.users[0].displayName,
+      url: res.data.users[0].photoUrl,
     });
   }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
+    const { placeholder, value } = e.target;
+    setUserData({ ...userData, [placeholder]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userData);
     let idToken = localStorage.getItem("idToken");
-
     try {
+      setIsLoading(true);
       const res = await axios.post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAcEPtUojmINWD51NeqF0UljCHCjEc2MxM",
+        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCbFTk4FsbWksp6ljbfam7dNwA4IyxJujU",
         {
           idToken: idToken,
           displayName: userData.fullName,
           photoUrl: userData.url,
         }
       );
-      toast("Profile Updated😌");
+
+      toast("Profile Updated");
       document.querySelector("form").reset();
     } catch (e) {
+      setIsLoading(false);
       toast(e.response.data.error.message);
     }
   };
@@ -70,42 +68,34 @@ function CompleteProfilePage() {
         <div>
           <label className="d-flex justify-content-center">Full Name</label>
           <input
-            name="fullName"
             type="text"
             className="form-control"
             onChange={handleChange}
-            placeholder="Enter Your Full Name"
+            placeholder="fullName"
+            defaultValue={defaultData.fullName}
             required
           />
         </div>
 
-        <div className="mt-2">
-          <label className="d-flex justify-content-center">
-            Profile Photo URL
-          </label>
+        <div className=" mt-2">
+          <label className="d-flex justify-content-center">Profile Photo URL</label>
           <input
-            name="url"
             type="url"
             className="form-control"
             onChange={handleChange}
-            placeholder="Paste url here"
+            placeholder="url"
+            defaultValue={defaultData.url}
             required
           />
         </div>
 
         <div className="d-flex justify-content-center mt-2">
-          <input
-            type="submit"
-            className="btn bg-gradient btn-secondary"
-            style={{
-              color: "white",
-            }}
-            value="UPDATE"
-          />
+          {isLoading && "Wait I'm Working🏃..."}
+        {!isLoading && <input type="submit" className=" btn btn-secondary" value="UPDATE" />}
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default CompleteProfilePage;

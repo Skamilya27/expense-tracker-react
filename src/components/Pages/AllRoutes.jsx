@@ -1,26 +1,25 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useContext } from 'react'
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom'
-import Signup from '../Auth/Signup'
-import Home from './Home'
-import Login from '../Auth/Login'
-import CompleteProfilePage from '../CompleteProfile/CompleteProfilePage'
-import VerifyEmail from '../Auth/VerifyEmail'
-import PrivateRoute from '../../context/PrivateRoute'
+import PrivateRoute from '../../context/PrivateRoute';
+import Login from '../Auth/Login';
+import Signup from '../Auth/Signup';
+import VarifyEmail from '../Auth/VarifyEmail';
+import CompleteProfilePage from '../CompleteProfile/CompleteProfilePage';
 import Expenses from './Expenses/Expenses';
+import Home from './Home'
 
-function AllRoutes() {
+const AllRoutes = () => {
   const isLoginPage = useSelector((state) => state.auth.isLoginPage);
-  const IdToken = useSelector(state => state.auth.IdToken);
+  const IdToken = useSelector(state=>state.auth.IdToken)
   return (
     <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/auth' element={isLoginPage?<Login /> : <Signup />} />
-      <Route path='/completeProfile' element={<CompleteProfilePage />} />
-      <Route path='/VerifyEmail' element={<VerifyEmail />} />
-
+      <Route path="/" element={<Home />} />
+      <Route path="/auth" element={isLoginPage ? <Login /> : <Signup />} />
+      <Route path="/completeProfile" element={<CompleteProfilePage />} />
+      <Route path="/VarifyEmail" element={<VarifyEmail />} />
       <Route
-        path='/expenses'
+        path="/expenses"
         element={
           <PrivateRoute IdToken={IdToken}>
             <Expenses />
@@ -28,7 +27,7 @@ function AllRoutes() {
         }
       />
     </Routes>
-  )
+  );
 }
 
 export default AllRoutes

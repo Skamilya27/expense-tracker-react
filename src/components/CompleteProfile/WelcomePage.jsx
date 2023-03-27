@@ -1,10 +1,8 @@
 import React from 'react'
 
-function WelcomePage() {
+const WelcomePage = () => {
   return (
-    <div>
-      Welcome Page
-    </div>
+    <div>Welcome Page</div>
   )
 }
 
